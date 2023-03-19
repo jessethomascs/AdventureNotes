@@ -1,0 +1,11 @@
+name: adventurenotes
+version: 1.0
+main: jesse.adventurenotes.App
+api-version: 1.19
+authors: [ Jesse ]
+description: A simple plugin for taking notes while playing minecraft maps
+commands:
+   note:
+      description: Adds a note to either local or shared journal
+      usage: /note <msg>
+      permission: adventurenotes.note

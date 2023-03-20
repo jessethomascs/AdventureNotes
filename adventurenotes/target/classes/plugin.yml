@@ -6,6 +6,18 @@ authors: [ Jesse ]
 description: A simple plugin for taking notes while playing minecraft maps
 commands:
    note:
-      description: Adds a note to either local or shared journal
+      description: Adds a note to the global journal
       usage: /note <msg>
       permission: adventurenotes.note
+   read:
+      description: Reads a note from the global journal
+      usage: /read <index>
+      permission: adventurenotes.read
+   edit:
+      description: Edits a note from the global journal
+      usage: /edit <index>
+      permission: adventurenotes.edit
+   delete:
+      description: Deletes a note from the global journal
+      usage: /delete <index>
+      permission: adventurenotes.delete

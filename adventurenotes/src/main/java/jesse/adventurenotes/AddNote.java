@@ -13,7 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import jesse.adventurenotes.models.Note;
+import jesse.adventurenotes.utils.AdventureNotesUtil;
 
 //import com.google.gson.Gson;
 
@@ -21,10 +21,14 @@ public class AddNote implements CommandExecutor{
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
+            sender.sendMessage("DEBUG ----");
             sender.sendMessage(command.toString());
             sender.sendMessage(label);
             sender.sendMessage(Integer.toString(args.length));
             sender.sendMessage("Note added in journal.");
+            sender.sendMessage("--------------------------");
+
+            AdventureNotesUtil.createNote((Player) sender, args[2]);
         } else {
             sender.sendMessage("HEY! You aren't a player! There are a different set of commands you can run as console.");
         }
@@ -32,7 +36,5 @@ public class AddNote implements CommandExecutor{
         return false;
     }
 
-    public static Note createNote(Player p, String note) {
-        
-    }
+    
 }

@@ -15,6 +15,13 @@ public class Note {
         this.noteDate = new Date();
     }
 
+    public Note() {
+        // Default constructor
+        this.playerName = null;
+        this.playerNote = null;
+        this.noteDate = null;
+    }
+
     public String getName() {
         return this.playerName;
     }

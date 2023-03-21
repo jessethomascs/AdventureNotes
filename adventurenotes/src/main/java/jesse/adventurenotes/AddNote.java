@@ -8,6 +8,9 @@
  */
 package jesse.adventurenotes;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,13 +31,21 @@ public class AddNote implements CommandExecutor{
             sender.sendMessage("Note added in journal.");
             sender.sendMessage("--------------------------");
 
-            AdventureNotesUtil.createNote((Player) sender, args[2]);
+            String newNote = Arrays.toString(args);
+
+            try {
+                AdventureNotesUtil.createNote((Player) sender, newNote);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return true;
         } else {
             sender.sendMessage("HEY! You aren't a player! There are a different set of commands you can run as console.");
         }
-
         return false;
     }
 
+    
     
 }

@@ -1,22 +1,42 @@
 package jesse.adventurenotes.utils;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.entity.Player;
 
+import com.google.gson.Gson;
+
+import jesse.adventurenotes.App;
 import jesse.adventurenotes.models.Note;
 
 public class AdventureNotesUtil {
     // Will Create, Read, Edit, and Remove notes
     public static Map<Integer, Note> globalNotebook = new HashMap<Integer, Note>();
 
-    public static void createNote(Player p, String newNote) {
-        Note note = new Note(p.getDisplayName(), newNote);
+    public static void createNote(Player p, String newNote) throws IOException {
 
-        int stackTop = Collections.max(globalNotebook.keySet()); // Grabs current highest value (in theory)
-        globalNotebook.put(++stackTop, note); // Puts onto stack
+        //int stackTop;
+        // If first note:
+        //if (!(Collections.max(globalNotebook.keySet()) instanceof Integer)) {
+        //    stackTop = Collections.max(globalNotebook.keySet());
+        //} else {
+        //    stackTop = 0;
+        //}
+
+        Note note = new Note(p.getDisplayName(), newNote);      
+        globalNotebook.put(0, note); // Puts onto stack
+
+        try {
+            storeNote(note); // TODO: This is completely debugging to test persistant data storage
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Note readNote(int index) {
@@ -33,5 +53,23 @@ public class AdventureNotesUtil {
 
     public static void DeleteNote(int index) {
         globalNotebook.remove(index);
+    }
+
+    // Store note to persistant data storage
+    public static void storeNote(Note note) throws IOException {
+        Gson gson = new Gson();
+
+        try { 
+            File file = new File(App.getPlugin().getDataFolder().getAbsolutePath() + "/notes.json");
+            file.getParentFile().mkdir();
+            file.createNewFile();
+            Writer writer = new FileWriter(file, true);
+            gson.toJson(globalNotebook, writer);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+           
     }
 }

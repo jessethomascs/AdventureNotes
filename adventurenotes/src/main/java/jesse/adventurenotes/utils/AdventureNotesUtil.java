@@ -19,24 +19,23 @@ public class AdventureNotesUtil {
     // Will Create, Read, Edit, and Remove notes
     public static Map<Integer, Note> globalNotebook = new HashMap<Integer, Note>();
 
-    public static void createNote(Player p, String newNote) throws IOException {
-
-        //int stackTop;
-        // If first note:
-        //if (!(Collections.max(globalNotebook.keySet()) instanceof Integer)) {
-        //    stackTop = Collections.max(globalNotebook.keySet());
-        //} else {
-        //    stackTop = 0;
-        //}
+    public static int createNote(Player p, String newNote) throws IOException {
+        int stackTop;
+        if (globalNotebook.isEmpty()) {
+            stackTop = 1; // Start notes at 1
+        } else {
+            stackTop = Collections.max(globalNotebook.keySet()) + 1;
+        }
 
         Note note = new Note(p.getDisplayName(), newNote);      
-        globalNotebook.put(0, note); // Puts onto stack
+        globalNotebook.put(stackTop, note); // Puts onto stack
 
         try {
             storeNote(note); // TODO: This is completely debugging to test persistant data storage
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return stackTop;
     }
 
     public static Note readNote(int index) {

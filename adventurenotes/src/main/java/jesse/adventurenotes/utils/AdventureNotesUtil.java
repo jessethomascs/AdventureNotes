@@ -4,13 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.Struct;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.lang.reflect.Type;
 
 import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import jesse.adventurenotes.App;
 import jesse.adventurenotes.models.Note;
@@ -56,8 +60,7 @@ public class AdventureNotesUtil {
 
     // Store note to persistant data storage
     public static void storeNote(Note note) throws IOException {
-        Gson gson = new Gson();
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         try { 
             File file = new File(App.getPlugin().getDataFolder().getAbsolutePath() + "/notes.json");
             file.getParentFile().mkdir();
@@ -70,5 +73,18 @@ public class AdventureNotesUtil {
             e.printStackTrace();
         }
            
+    }
+
+    // Retrieve all notes from persistant data storage (should only run on starting server)
+    public static void retrieveGlobalNotes(Player player) {
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        String json = gson.toJson(globalNotebook);
+        Type type = new TypeToken<HashMap<Integer, Note>>(){}.getType();
+        Map<Integer, Note> clone = gson.fromJson(json, type); // This seems inherintly janky. Is there not a better way to do this?
+        
+        
+        player.sendMessage("--------------------------------");
+        player.sendMessage(json);
+        player.sendMessage(clone.toString());
     }
 }

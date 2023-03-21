@@ -37,6 +37,7 @@ public class AddNote implements CommandExecutor{
             try {
                 temp = AdventureNotesUtil.createNote((Player) sender, newNote);
                 sender.sendMessage("stackTop: " + temp.toString());
+                AdventureNotesUtil.retrieveGlobalNotes((Player) sender);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

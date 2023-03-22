@@ -2,6 +2,7 @@ package jesse.adventurenotes;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+//import jesse.adventurenotes.utils.AdventureNotesUtil;
 import jesse.adventurenotes.utils.EventListeners;
 public class App extends JavaPlugin {
     
@@ -16,6 +17,9 @@ public class App extends JavaPlugin {
         this.getCommand("read").setExecutor(new ReadNote());
         this.getCommand("edit").setExecutor(new EditNote());
         this.getCommand("delete").setExecutor(new DeleteNote());
+
+        getLogger().info("[AdventureNotes] >> Filling internal notebook with file info...");
+        //AdventureNotesUtil.retrieveGlobalNotes();
     }
 
     @Override

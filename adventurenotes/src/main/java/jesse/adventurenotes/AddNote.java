@@ -29,15 +29,11 @@ public class AddNote implements CommandExecutor{
             sender.sendMessage(label);
             sender.sendMessage(Integer.toString(args.length));
             sender.sendMessage("Note added in journal.");
-            sender.sendMessage("--------------------------");
 
             String newNote = Arrays.toString(args);
-            Integer temp = -1;
 
             try {
-                temp = AdventureNotesUtil.createNote((Player) sender, newNote);
-                sender.sendMessage("stackTop: " + temp.toString());
-                AdventureNotesUtil.retrieveGlobalNotes((Player) sender);
+                AdventureNotesUtil.createNote((Player) sender, newNote);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

@@ -1,37 +1,31 @@
 package jesse.adventurenotes.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Note {
 
     private String playerName;
-    private String playerNote;
-    private Date noteDate;
+    private ArrayList<String> playerNotes;
     //private int playerNoteId; TODO: Add this in order to call notes by ID
     
-    public Note(String playerName, String playerNote) {
+    public Note(String playerName, ArrayList<String> playerNotes) {
         this.playerName = playerName;
-        this.playerNote = playerNote;
-        this.noteDate = new Date();
+        this.playerNotes = playerNotes;
     }
 
     public Note() {
         // Default constructor
         this.playerName = null;
-        this.playerNote = null;
-        this.noteDate = null;
+        this.playerNotes = null;
     }
 
     public String getName() {
         return this.playerName;
     }
 
-    public String getNote() {
-        return this.playerNote;
-    }
-
-    public Date getDate() {
-        return this.noteDate;
+    public ArrayList<String> getNotes() {
+        return this.playerNotes;
     }
 
     public boolean setName(String name) { 
@@ -44,19 +38,9 @@ public class Note {
         return false;
     }
 
-    public boolean setDate(Date date) {
+    public boolean addNote(String newNote) {
         try {
-            this.noteDate = date;
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean setNote(String note) {
-        try {
-            this.playerNote = note;
+            this.playerNotes.add(newNote);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

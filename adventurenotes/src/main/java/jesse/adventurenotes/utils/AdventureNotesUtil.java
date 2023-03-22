@@ -57,12 +57,44 @@ public class AdventureNotesUtil {
     }
 
     // Store note to persistant data storage
-    public static void storeNote() {
+    public static void storeNote(Player player, String note) {
         
     }
 
     // Retrieve all notes from persistant data storage (should only run on starting server)
     public static void retrieveGlobalNotes() {
 
+    }
+
+    // TODO: Fix to return a proper JSON Object
+    private Object readFromJSONFile(String fileName) throws IOException {
+        // will return JSON Object
+        return false;
+    }
+
+    private Boolean writeToJSONFile(String fileName) throws IOException {
+
+
+        return false;
+    }
+
+    // Make a JSON file
+    private Boolean createJSONFile(String fileName) throws IOException {
+        try {
+            if (exists(fileName, "json")) { return true; }
+            File file = new File(App.getPlugin().getDataFolder().getAbsolutePath() + "/" + fileName);
+            file.getParentFile().mkdir();
+            file.createNewFile();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    // Generic check to see if file exists
+    private Boolean exists(String fileName, String ext) {
+        File file = new File(App.getPlugin().getDataFolder().getAbsolutePath() + "/" + fileName + "." + ext);
+        
+        return file.exists();
     }
 }

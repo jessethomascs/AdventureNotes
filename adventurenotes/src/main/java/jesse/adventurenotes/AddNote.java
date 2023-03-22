@@ -24,12 +24,6 @@ public class AddNote implements CommandExecutor{
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            sender.sendMessage("DEBUG ----");
-            sender.sendMessage(command.toString());
-            sender.sendMessage(label);
-            sender.sendMessage(Integer.toString(args.length));
-            sender.sendMessage("Note added in journal.");
-
             String newNote = Arrays.toString(args);
 
             try {

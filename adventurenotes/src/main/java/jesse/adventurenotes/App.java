@@ -13,7 +13,7 @@ import jesse.adventurenotes.utils.EventListeners;
 public class App extends JavaPlugin {
     
     public static App myPlugin;
-    private String pathToNotesJson;
+    public static String pathToNotesJson;
     public static boolean activeChatListener;
 
     @Override

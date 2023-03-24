@@ -11,6 +11,7 @@ package jesse.adventurenotes.commands;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,8 +28,8 @@ public class AddNote implements CommandExecutor{
 
             try {
                 AdventureNotesUtil.createNote((Player) sender, newNote);
+                sender.sendMessage(ChatColor.DARK_AQUA + "Your note has been added.");
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return true;

@@ -8,8 +8,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.entity.Player;
 
@@ -21,7 +19,7 @@ import jesse.adventurenotes.models.Note;
 
 public class AdventureNotesUtil {
     // Will Create, Read, Edit, and Remove notes
-    public static Map<Integer, Note> globalNotebook = new HashMap<Integer, Note>();
+    //public static Map<Integer, Note> globalNotebook = new HashMap<Integer, Note>();
     public static ArrayList<Note> notes = new ArrayList<>();
 
     public static Note createNote(Player p, String newNote) throws IOException {
@@ -52,13 +50,14 @@ public class AdventureNotesUtil {
         return null;
     }
 
-    public static void DeleteNote(String uniqueId) {
+    public static Boolean DeleteNote(String uniqueId) {
         for (Note note : notes) {
             if (note.getUniqueUUID().equals(uniqueId)) {
                 notes.remove(note);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     public static void loadNotes(String filePath) throws IOException {

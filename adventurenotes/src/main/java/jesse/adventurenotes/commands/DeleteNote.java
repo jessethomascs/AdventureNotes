@@ -14,8 +14,10 @@ public class DeleteNote implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         try {
-            AdventureNotesUtil.DeleteNote(args[1]);
-            AdventureNotesUtil.saveNotes(App.pathToNotesJson);
+            if (AdventureNotesUtil.DeleteNote(args[1])) { 
+                AdventureNotesUtil.saveNotes(App.pathToNotesJson); 
+            }
+
             return true;
         } catch (IOException e) {
             e.printStackTrace();

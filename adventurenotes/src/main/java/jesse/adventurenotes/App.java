@@ -8,6 +8,7 @@ import jesse.adventurenotes.commands.ActiveChatListener;
 import jesse.adventurenotes.commands.AddNote;
 import jesse.adventurenotes.commands.DeleteNote;
 import jesse.adventurenotes.commands.EditNote;
+import jesse.adventurenotes.commands.ReadNote;
 import jesse.adventurenotes.utils.AdventureNotesUtil;
 import jesse.adventurenotes.utils.EventListeners;
 public class App extends JavaPlugin {
@@ -27,6 +28,7 @@ public class App extends JavaPlugin {
         this.getCommand("edit").setExecutor(new EditNote());
         this.getCommand("delete").setExecutor(new DeleteNote());
         this.getCommand("acl").setExecutor(new ActiveChatListener());
+        this.getCommand("read").setExecutor(new ReadNote());
 
         activeChatListener = false;
 

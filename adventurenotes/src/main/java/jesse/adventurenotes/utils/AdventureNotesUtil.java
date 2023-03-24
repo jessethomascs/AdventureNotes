@@ -1,10 +1,13 @@
 package jesse.adventurenotes.utils;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,82 +22,72 @@ import jesse.adventurenotes.models.Note;
 public class AdventureNotesUtil {
     // Will Create, Read, Edit, and Remove notes
     public static Map<Integer, Note> globalNotebook = new HashMap<Integer, Note>();
-    private static int topNoteIndex;
+    public static ArrayList<Note> notes = new ArrayList<>();
 
-    public static void createNote(Player p, String newNote) throws IOException {
-        Note note = new Note();
-        note.addNote(newNote);
-        note.setName(p.getDisplayName());
+    public static Note createNote(Player p, String newNote) throws IOException {
+        Note note = new Note(p.getDisplayName(), newNote, p.getUniqueId().toString());
+        notes.add(note);
 
-        if (globalNotebook.isEmpty()) {
-            topNoteIndex = 1; // Start notes at 1
-        } else {
-            topNoteIndex = Collections.max(globalNotebook.keySet()) + 1;
-        }  
-        globalNotebook.put(topNoteIndex, note); // Puts onto stack
+        saveNotes(App.myPlugin.getDataFolder().getAbsolutePath() + "/notes.json");
+        return note;
+    }
 
+    public static Note retrieveNote(String uniqueId) {
+        for (Note note : notes) {
+            if (note.getUniqueUUID().equals(uniqueId)) {
+                return note;
+            }
+        }
+        return null;
+    }
+
+    public static Note ModifyNote(Note updatedNote, String uniqueId) {
+        for (Note note : notes) {
+            if (note.getUniqueUUID().equals(uniqueId)) {
+                note.setName(updatedNote.getName());
+                note.setNote(updatedNote.getNote());
+                return note;
+            }
+        }
+        return null;
+    }
+
+    public static void DeleteNote(String uniqueId) {
+        for (Note note : notes) {
+            if (note.getUniqueUUID().equals(uniqueId)) {
+                notes.remove(note);
+                break;
+            }
+        }
+    }
+
+    public static void loadNotes(String filePath) throws IOException {
         try {
-            storeNote(note); // TODO: This is completely debugging to test persistant data storage
-        } catch (IOException e) {
+            Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+            File file = new File(filePath);
+
+            if (!file.exists()) { return; }
+
+            Reader reader = new FileReader(file);
+            Note[] n = gson.fromJson(reader, Note[].class);
+            notes = new ArrayList<>(Arrays.asList(n));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Note readNote(int index) {
-        Note ret = globalNotebook.get(index);
-
-        if (ret == null) return new Note();
-
-        return ret;
-    }
-
-    public static void ModifyNote(int index) {
-        // Do something with a GUI here...?
-    }
-
-    public static void DeleteNote(int index) {
-        globalNotebook.remove(index);
-    }
-
-    // Store note to persistant data storage
-    public static void storeNote(Player player, String note) {
-        
-    }
-
-    // Retrieve all notes from persistant data storage (should only run on starting server)
-    public static void retrieveGlobalNotes() {
-
-    }
-
-    // TODO: Fix to return a proper JSON Object
-    private Object readFromJSONFile(String fileName) throws IOException {
-        // will return JSON Object
-        return false;
-    }
-
-    private Boolean writeToJSONFile(String fileName) throws IOException {
-
-
-        return false;
-    }
-
-    // Make a JSON file
-    private Boolean createJSONFile(String fileName) throws IOException {
+    public static void saveNotes(String filePath) throws IOException {
         try {
-            if (exists(fileName, "json")) { return true; }
-            File file = new File(App.getPlugin().getDataFolder().getAbsolutePath() + "/" + fileName);
+            Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+            File file = new File(filePath);
             file.getParentFile().mkdir();
             file.createNewFile();
-            return true;
-        } catch (IOException e) {
-            return false;
+            Writer writer = new FileWriter(file, false);
+            gson.toJson(notes, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    // Generic check to see if file exists
-    private Boolean exists(String fileName, String ext) {
-        File file = new File(App.getPlugin().getDataFolder().getAbsolutePath() + "/" + fileName + "." + ext);
-        
-        return file.exists();
     }
 }

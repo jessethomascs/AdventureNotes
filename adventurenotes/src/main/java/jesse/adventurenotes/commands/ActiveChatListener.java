@@ -1,18 +1,14 @@
-package jesse.adventurenotes;
+package jesse.adventurenotes.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-public class ReadNote implements CommandExecutor {
+import jesse.adventurenotes.App;
 
-    @Override
+public class ActiveChatListener implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-
-        }
-        return false;
+        App.activeChatListener = !App.activeChatListener;
+        return true;
     }
-    
 }

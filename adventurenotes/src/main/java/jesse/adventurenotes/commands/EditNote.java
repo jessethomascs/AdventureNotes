@@ -1,4 +1,4 @@
-package jesse.adventurenotes;
+package jesse.adventurenotes.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

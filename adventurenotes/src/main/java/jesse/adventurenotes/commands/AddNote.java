@@ -6,7 +6,7 @@
  * Example usage: (in game): /an:edit <id> -> (srver):  GUI opens up to modify/edit the message that is stored for easier access
  * Example usage: (in game): /an:del <id> -> (srver):   Delete an entire note by ID entry
  */
-package jesse.adventurenotes;
+package jesse.adventurenotes.commands;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -21,7 +21,6 @@ import jesse.adventurenotes.utils.AdventureNotesUtil;
 //import com.google.gson.Gson;
 
 public class AddNote implements CommandExecutor{
-
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             String newNote = Arrays.toString(args);
@@ -38,7 +37,4 @@ public class AddNote implements CommandExecutor{
         }
         return false;
     }
-
-    
-    
 }

@@ -1,25 +1,40 @@
 package jesse.adventurenotes;
 
+import java.io.IOException;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
-//import jesse.adventurenotes.utils.AdventureNotesUtil;
+import jesse.adventurenotes.commands.ActiveChatListener;
+import jesse.adventurenotes.commands.AddNote;
+import jesse.adventurenotes.commands.DeleteNote;
+import jesse.adventurenotes.commands.EditNote;
+import jesse.adventurenotes.utils.AdventureNotesUtil;
 import jesse.adventurenotes.utils.EventListeners;
 public class App extends JavaPlugin {
     
     public static App myPlugin;
+    private String pathToNotesJson;
+    public static boolean activeChatListener;
 
     @Override
     public void onEnable() {
         myPlugin = this;
         getLogger().info("AdventureNotes rolled a nat 20");
+        pathToNotesJson = this.getDataFolder().getAbsolutePath() + "/notes.json";
         getServer().getPluginManager().registerEvents(new EventListeners(), getPlugin());
         this.getCommand("note").setExecutor(new AddNote());
-        this.getCommand("read").setExecutor(new ReadNote());
+        this.getCommand("addnote").setExecutor(new AddNote());
         this.getCommand("edit").setExecutor(new EditNote());
         this.getCommand("delete").setExecutor(new DeleteNote());
+        this.getCommand("acl").setExecutor(new ActiveChatListener());
 
-        getLogger().info("[AdventureNotes] >> Filling internal notebook with file info...");
-        //AdventureNotesUtil.retrieveGlobalNotes();
+        activeChatListener = false;
+
+        try {
+            AdventureNotesUtil.loadNotes(pathToNotesJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -31,4 +46,6 @@ public class App extends JavaPlugin {
     public static App getPlugin() {
         return myPlugin;
     }
+
+
 }

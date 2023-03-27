@@ -24,7 +24,17 @@ import jesse.adventurenotes.utils.AdventureNotesUtil;
 public class AddNote implements CommandExecutor{
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            String newNote = Arrays.toString(args);
+            //String newNote = Arrays.toString(args);
+
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0; i < args.length; i++) {
+                sb.append(args[i] + " ");
+            }
+
+            String newNote = sb.toString();
+
+
+            sender.sendMessage("hey loser, you typed: " + ChatColor.RED + newNote);
 
             try {
                 AdventureNotesUtil.createNote((Player) sender, newNote);

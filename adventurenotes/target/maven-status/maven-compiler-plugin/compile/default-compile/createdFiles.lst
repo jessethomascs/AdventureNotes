@@ -7,3 +7,4 @@ jesse\adventurenotes\commands\ReadNote.class
 jesse\adventurenotes\App.class
 jesse\adventurenotes\commands\ActiveChatListener.class
 jesse\adventurenotes\models\Note.class
+jesse\adventurenotes\models\ChatMenu.class

@@ -29,3 +29,7 @@ commands:
       description: Toggles active chat listener
       usage: /acl
       permission: adventurenotes.commands.acl
+   chatmenu:
+      description: Prints to chat
+      usage: /chatmenu
+      permission: adventurenotes.commands.chatmenu

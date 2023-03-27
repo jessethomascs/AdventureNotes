@@ -9,6 +9,7 @@ import jesse.adventurenotes.commands.AddNote;
 import jesse.adventurenotes.commands.DeleteNote;
 import jesse.adventurenotes.commands.EditNote;
 import jesse.adventurenotes.commands.ReadNote;
+import jesse.adventurenotes.models.ChatMenu;
 import jesse.adventurenotes.utils.AdventureNotesUtil;
 import jesse.adventurenotes.utils.EventListeners;
 public class App extends JavaPlugin {
@@ -19,6 +20,7 @@ public class App extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         myPlugin = this;
         getLogger().info("AdventureNotes rolled a nat 20");
         pathToNotesJson = this.getDataFolder().getAbsolutePath() + "/notes.json";
@@ -29,6 +31,7 @@ public class App extends JavaPlugin {
         this.getCommand("delete").setExecutor(new DeleteNote());
         this.getCommand("acl").setExecutor(new ActiveChatListener());
         this.getCommand("read").setExecutor(new ReadNote());
+        this.getCommand("chatmenu").setExecutor(new ChatMenu());
 
         activeChatListener = false;
 
@@ -37,6 +40,7 @@ public class App extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override

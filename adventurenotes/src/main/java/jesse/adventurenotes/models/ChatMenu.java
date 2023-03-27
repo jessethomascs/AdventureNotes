@@ -16,15 +16,27 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class ChatMenu implements CommandExecutor {
-    private Integer itemsToDisplay;
+    //private int itemsToDisplay;
 
     public ChatMenu() {
-        this.itemsToDisplay = 10;
+        //this.itemsToDisplay = 10;
     }
 
     public ChatMenu(int n) {
         if (n < 1) { return; } // Invalid input
-        this.itemsToDisplay = n;
+        //this.itemsToDisplay = n;
+    }
+
+    public TextComponent colorChat(int parity, String msg, Text hoverText) {
+        // Will just return colored chat based on number parity (for alternating color purposes in chat)
+        TextComponent ret = new TextComponent();
+        if (parity % 2 == 0) {
+            ret.setText(ChatColor.GREEN + msg);
+        } else {
+            ret.setText(ChatColor.WHITE + msg);
+        }
+        ret.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+        return ret;
     }
 
     public void printChatMenu(Player player, int pageNum) {
@@ -44,11 +56,8 @@ public class ChatMenu implements CommandExecutor {
         player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages + 1) + " ---------");
         for (int i = start; i < finish; i++) {
             Text mouseHoverText = new Text(AdventureNotesUtil.notes.get(i).getNote());
+            TextComponent newLine = colorChat(i, "Note " + (i + 1) + " - " + AdventureNotesUtil.notes.get(i).getName(), mouseHoverText);
             
-            TextComponent newLine = new TextComponent();
-            newLine.setText("Note " + (i + 1) + " - " + AdventureNotesUtil.notes.get(i).getName());
-            newLine.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, mouseHoverText));
-
             player.spigot().sendMessage(newLine);
         }
         player.sendMessage("---------------------------------------");
@@ -70,7 +79,6 @@ public class ChatMenu implements CommandExecutor {
             return false;
         }
         printChatMenu((Player) sender, pageNum);
-
         return true;
     }
 }

@@ -104,7 +104,7 @@ public class ChatMenu implements CommandExecutor {
                 pageNum = 0;
             }
         } catch (NumberFormatException nfe) {
-            sender.sendMessage("Hey! Correct utilization is " + ChatColor.RED + "/chatmenu <number>");
+            sender.sendMessage("Hey! Correct utilization is " + ChatColor.RED + "/chatmenu <number> <optional: player/category>");
             return true;
         } catch (Exception e) {
             e.printStackTrace();

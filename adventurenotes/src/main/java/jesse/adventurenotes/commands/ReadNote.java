@@ -1,5 +1,7 @@
 package jesse.adventurenotes.commands;
 
+import java.util.ArrayList;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,6 +15,15 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class ReadNote implements CommandExecutor {
+
+    private ArrayList<Note> read(String username) {
+        return AdventureNotesUtil.retrieveNotes(username);
+    }
+
+    /* Returns the exat Note ID */
+    private Note read(int id) {
+        return new Note();
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

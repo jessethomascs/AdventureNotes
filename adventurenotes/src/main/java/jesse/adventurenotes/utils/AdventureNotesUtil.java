@@ -30,6 +30,7 @@ public class AdventureNotesUtil {
         return note;
     }
 
+    /* Returns all created notes stored in json */
     public static Note retrieveNote(String uniqueId) {
         for (Note note : notes) {
             if (note.getUniqueUUID().equals(uniqueId)) {
@@ -37,6 +38,17 @@ public class AdventureNotesUtil {
             }
         }
         return null;
+    }
+
+    /* Overload: Returns only notes from specific player */
+    public static ArrayList<Note> retrieveNotes(String playerName) {
+        ArrayList<Note> filteredList = new ArrayList<>();
+        for (Note note : notes) {
+            if (note.getName().equals(playerName)) {
+                filteredList.add(note);
+            }
+        }
+        return filteredList;
     }
 
     public static Note ModifyNote(Note updatedNote, String uniqueId) {

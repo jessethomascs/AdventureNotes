@@ -41,7 +41,7 @@ public class ChatMenu implements CommandExecutor {
         if (totalEntries < 1) { player.sendMessage("There are no notes to display!"); }
         if (pageNum > totalMenuPages) { player.sendMessage("Invalid page number, there are only " + totalMenuPages + " pages!"); }
 
-        player.sendMessage(">>>> [AdventureNotes] Page " + (pageNum + 1) + "/" + (totalMenuPages + 1) + " -----------");
+        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages + 1) + " ---------");
         for (int i = start; i < finish; i++) {
             Text mouseHoverText = new Text(AdventureNotesUtil.notes.get(i).getNote());
             

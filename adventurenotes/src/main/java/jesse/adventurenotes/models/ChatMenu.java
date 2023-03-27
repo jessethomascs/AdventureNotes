@@ -52,10 +52,10 @@ public class ChatMenu implements CommandExecutor {
         int finish = start + 10;
 
         if (finish > totalEntries) { finish = start + (totalEntries - start); }
-        if (totalEntries < 1) { player.sendMessage("There are no notes to display!"); }
-        if (pageNum > totalMenuPages) { player.sendMessage("Invalid page number, there are only " + totalMenuPages + " pages!"); }
+        if (totalEntries < 1) { player.sendMessage("There are no notes to display!"); return; }
+        if (pageNum + 1 > totalMenuPages) { player.sendMessage("Invalid page number, there are only " + totalMenuPages + " pages!"); return; }
 
-        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages + 1) + " ---------");
+        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages) + " ---------");
         for (int i = start; i < finish; i++) {
             Text mouseHoverText = new Text(AdventureNotesUtil.notes.get(i).getNote());
             TextComponent newLine = colorChat(i, "Note " + (i + 1) + " - " + AdventureNotesUtil.notes.get(i).getName(), mouseHoverText);
@@ -85,7 +85,7 @@ public class ChatMenu implements CommandExecutor {
         if (totalEntries < 1) { player.sendMessage("There are no notes to display!"); return; }
         if (pageNum > totalMenuPages) { player.sendMessage("Invalid page number, there are only " + totalMenuPages + " pages!"); }
 
-        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages + 1) + " ---------");
+        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages) + " ---------");
         for (int i = start; i < finish; i++) {
             Text mouseHoverText = new Text(filter.get(i).getNote());
             TextComponent newLine = colorChat(i, "Note " + (i + 1) + " - " + filter.get(i).getName(), mouseHoverText);

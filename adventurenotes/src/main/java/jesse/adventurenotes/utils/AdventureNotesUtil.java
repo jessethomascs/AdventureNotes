@@ -30,7 +30,8 @@ public class AdventureNotesUtil {
 
         saveNotes(App.myPlugin.getDataFolder().getAbsolutePath() + "/notes.json");
 
-        createPlayerNoteParticle(p);
+        //createPlayerNoteParticle(p);
+        drawPencilArray(p);
         return note;
     }
 
@@ -117,5 +118,77 @@ public class AdventureNotesUtil {
 
         player.spawnParticle(Particle.REDSTONE, x, y + 0.5f, z, 20, highColor);
         player.spawnParticle(Particle.REDSTONE, x, y, z, 20, lowColor);
+    }
+
+    public static void drawPencilArray(Player player) {
+
+        App.myPlugin.getLogger().info("[AdventureNotes] attempting to draw a giant pencil");
+
+        double playerX = player.getLocation().getX();
+        double playerY = player.getLocation().getY() + (double) 6.5;
+        double playerZ = player.getLocation().getZ();
+
+        int[][] pencil = {
+          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 3, 3, 0, 0},
+          {0, 0, 0, 0, 0, 3, 3, 3, 0, 0},
+          {0, 0, 0, 0, 2, 2, 3, 0, 0, 0},
+          {0, 0, 0, 2, 2, 2, 0, 0, 0, 0},
+          {0, 0, 2, 2, 2, 0, 0, 0, 0, 0},  
+          {0, 1, 1, 2, 0, 0, 0, 0, 0, 0},  
+          {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},  
+          {1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (pencil[i][j] == 0) {
+                    Particle.DustOptions zeroColor = new Particle.DustOptions(Color.NAVY, 1.0f);
+                    //player.spawnParticle(Particle.REDSTONE, x, y + 0.5f, z, 20, zeroColor);
+
+                    double x = (playerX + (float) j / 2.0f) - 2.1f; // Subtract ALL the x values by 2.1 (this is an eye-ball adjustment to make this shape center above player head)
+                    double y = (playerY - (double) i / 3.0f);
+                    double z = playerZ;
+
+                    player.spawnParticle(Particle.REDSTONE, x, y, z, 15, zeroColor);
+
+
+                } else if (pencil[i][j] == 1) {
+
+                    double x = (playerX + (float) j / 2.0f) - 2.1f;
+                    double y = (playerY - (double) i / 3.0f);
+                    double z = playerZ;
+
+                    Particle.DustOptions oneColor = new Particle.DustOptions(Color.BLACK, 2.0f);
+
+                    player.spawnParticle(Particle.REDSTONE, x, y, z, 15, oneColor);
+
+                } else if (pencil[i][j] == 2) {
+
+                    double x = (playerX + (float) j / 2.0f) - 2.1f;
+                    double y = (playerY - (double) i / 3.0f);
+                    double z = playerZ;
+
+                    Particle.DustOptions twoColor = new Particle.DustOptions(Color.YELLOW, 2.0f);
+
+                    player.spawnParticle(Particle.REDSTONE, x, y, z, 15, twoColor);
+
+                } else if (pencil[i][j] == 3) {
+
+                    double x = (playerX + (float) j / 2.0f) - 2.0f;
+                    double y = (playerY - (double) i / 3.0f);
+                    double z = playerZ;
+
+                    Particle.DustOptions threeColor = new Particle.DustOptions(Color.PURPLE, 2.0f);
+
+                    player.spawnParticle(Particle.REDSTONE, x, y, z, 15, threeColor);
+
+                } else {
+                    // only god knows what ends up here
+                    continue;
+                }
+            }
+        }
     }
 }

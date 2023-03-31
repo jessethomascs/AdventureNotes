@@ -9,6 +9,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.bukkit.Color;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
 import com.google.gson.Gson;
@@ -27,6 +29,8 @@ public class AdventureNotesUtil {
         notes.add(note);
 
         saveNotes(App.myPlugin.getDataFolder().getAbsolutePath() + "/notes.json");
+
+        createPlayerNoteParticle(p);
         return note;
     }
 
@@ -100,5 +104,18 @@ public class AdventureNotesUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void createPlayerNoteParticle(Player player) {
+        App.myPlugin.getLogger().info("Attempting to create on player " + player.getDisplayName());
+        Particle.DustOptions highColor = new Particle.DustOptions(Color.WHITE, 3.0f);
+        Particle.DustOptions lowColor = new Particle.DustOptions(Color.RED, 3.0f);
+
+        double x = player.getLocation().getX();
+        double y = player.getLocation().getY() + (double) 3.0; // Original offset to get above head
+        double z = player.getLocation().getZ();
+
+        player.spawnParticle(Particle.REDSTONE, x, y + 0.5f, z, 20, highColor);
+        player.spawnParticle(Particle.REDSTONE, x, y, z, 20, lowColor);
     }
 }

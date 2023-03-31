@@ -9,7 +9,6 @@
 package jesse.adventurenotes.commands;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -32,7 +31,6 @@ public class AddNote implements CommandExecutor{
             }
 
             String newNote = sb.toString();
-
 
             sender.sendMessage("hey loser, you typed: " + ChatColor.RED + newNote);
 

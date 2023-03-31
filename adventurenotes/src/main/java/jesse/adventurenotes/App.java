@@ -40,7 +40,6 @@ public class App extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -52,6 +51,4 @@ public class App extends JavaPlugin {
     public static App getPlugin() {
         return myPlugin;
     }
-
-
 }

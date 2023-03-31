@@ -7,12 +7,16 @@ package jesse.adventurenotes.models;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 
 import jesse.adventurenotes.utils.AdventureNotesUtil;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
@@ -50,12 +54,15 @@ public class ChatMenu implements CommandExecutor {
         Integer totalMenuPages = (int) Math.ceil(totalEntries / 10);
         int start = (0 + pageNum) * 10;
         int finish = start + 10;
+        player.sendMessage("DEBUG");
+        player.sendMessage("totalMenuPages: " + totalMenuPages);
+        player.sendMessage("totalEntries: " + totalEntries);
 
         if (finish > totalEntries) { finish = start + (totalEntries - start); }
         if (totalEntries < 1) { player.sendMessage("There are no notes to display!"); return; }
-        if (pageNum + 1 > totalMenuPages) { player.sendMessage("Invalid page number, there are only " + totalMenuPages + " pages!"); return; }
+        if (pageNum > totalMenuPages) { player.sendMessage("Invalid page number, there are only " + totalMenuPages + " pages!"); return; }
 
-        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages) + " ---------");
+        player.sendMessage(">>>> " + ChatColor.WHITE + "[" + ChatColor.LIGHT_PURPLE + "Adventure" + ChatColor.GOLD + "Notes" + ChatColor.WHITE + "]" + ChatColor.BOLD + " Page " + (pageNum + 1) + "/" + (totalMenuPages + 1) + " ---------");
         for (int i = start; i < finish; i++) {
             Text mouseHoverText = new Text(AdventureNotesUtil.notes.get(i).getNote());
             TextComponent newLine = colorChat(i, "Note " + (i + 1) + " - " + AdventureNotesUtil.notes.get(i).getName(), mouseHoverText);

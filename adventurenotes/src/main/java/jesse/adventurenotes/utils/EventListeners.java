@@ -41,16 +41,6 @@ public class EventListeners implements Listener {
             // Option is best used when players are in a separate voice chat application on their PC's - and only using chat for important stuff
             try {
                 AdventureNotesUtil.createNote(e.getPlayer(), e.getMessage());
-
-                /* TODO: This is some particle messing around. This can be moved to a separate area or removed altogether for later. Here for reminders
-                Particle.DustOptions color = new Particle.DustOptions(Color.BLUE, 3.0f);
-
-                double x = e.getPlayer().getLocation().getX();
-                double y = e.getPlayer().getLocation().getY() + (double) 2.5;
-                double z = e.getPlayer().getLocation().getZ();
-
-                e.getPlayer().spawnParticle(Particle.REDSTONE, x, y, z, 1, color);
-                */
             } catch (IOException exc) {
                 exc.printStackTrace();
             }

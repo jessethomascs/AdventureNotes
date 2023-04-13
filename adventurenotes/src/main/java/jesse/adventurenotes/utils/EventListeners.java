@@ -17,7 +17,7 @@ public class EventListeners implements Listener {
 
     /* Special Case Variables */
     Boolean firstJoin = true;
-    Boolean activeChatListener = false; // off by default
+    static Boolean activeChatListener = false; // off by default
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {

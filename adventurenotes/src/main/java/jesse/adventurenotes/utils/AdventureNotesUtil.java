@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -125,8 +128,26 @@ public class AdventureNotesUtil {
         App.myPlugin.getLogger().info("[AdventureNotes] attempting to draw a giant pencil");
 
         double playerX = player.getLocation().getX();
-        double playerY = player.getLocation().getY() + (double) 6.5;
+        double playerY = player.getLocation().getY() + (double) 6.5; // Offset to put above players head
         double playerZ = player.getLocation().getZ();
+
+        Location playerEyes = player.getLocation();
+        
+        //Vector originalVector = player.getLocation().toVector();
+
+        //player.sendMessage("orig vec: " + originalVector.toString());
+
+        Vector offsetVector = playerEyes.getDirection(); // Fetches the current direction (vector) the player is looking
+        Vector temp = player.getEyeLocation().toVector();
+        player.sendMessage(temp.toString());
+        //Vector origVector = playerEyes.;
+        
+        double offsetX = offsetVector.getX();
+        double offsetY = offsetVector.getY();
+        double offsetZ = offsetVector.getZ();
+        player.sendMessage(Double.toString(offsetX));
+        player.sendMessage(Double.toString(offsetY));
+        player.sendMessage(Double.toString(offsetZ));
 
         int[][] pencil = {
           {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -147,9 +168,16 @@ public class AdventureNotesUtil {
                     Particle.DustOptions zeroColor = new Particle.DustOptions(Color.NAVY, 1.0f);
                     //player.spawnParticle(Particle.REDSTONE, x, y + 0.5f, z, 20, zeroColor);
 
-                    double x = (playerX + (float) j / 2.0f) - 2.1f; // Subtract ALL the x values by 2.1 (this is an eye-ball adjustment to make this shape center above player head)
-                    double y = (playerY - (double) i / 3.0f);
-                    double z = playerZ;
+                    double x = ( (playerX + (float) j / 2.0f) - 2.1f); // Subtract ALL the x values by 2.1 (this is an eye-ball adjustment to make this shape center above player head)
+                    double y = ( (playerY - (double) i / 3.0f));
+                    double z = ( playerZ );
+
+                    // temp:
+                    //x += x * offsetX;
+                    //y += y * offsetY;
+                    //z += z * offsetZ;
+                    //player.sendMessage("Offset Z: " + Double.toString(offsetZ));
+                    //player.sendMessage(x + " | " + y + " | " + z);
 
                     player.spawnParticle(Particle.REDSTONE, x, y, z, 15, zeroColor);
 
